@@ -33,10 +33,11 @@ const config: Config = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       animation: {
-        "fade-in": "fadeIn 0.5s ease-in-out",
-        "slide-up": "slideUp 0.5s ease-out",
+        "fade-in": "fadeIn 0.6s ease-out",
+        "slide-up": "slideUp 0.7s ease-out forwards",
         "slide-in": "slideIn 0.3s ease-out",
         shimmer: "shimmer 1.5s infinite",
+        "pulse-gold": "pulseGold 2s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
@@ -55,6 +56,10 @@ const config: Config = {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        pulseGold: {
+          "0%, 100%": { boxShadow: "0 0 0 0 rgba(212, 175, 55, 0.4)" },
+          "50%": { boxShadow: "0 0 0 10px rgba(212, 175, 55, 0)" },
+        },
       },
       backgroundImage: {
         "gold-gradient":
@@ -63,9 +68,13 @@ const config: Config = {
           "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)",
       },
       boxShadow: {
-        gold: "0 4px 20px rgba(212, 175, 55, 0.3)",
-        "gold-lg": "0 8px 40px rgba(212, 175, 55, 0.4)",
-        luxury: "0 20px 60px rgba(0, 0, 0, 0.3)",
+        gold: "0 4px 20px rgba(212, 175, 55, 0.25)",
+        "gold-lg": "0 8px 40px rgba(212, 175, 55, 0.35)",
+        luxury: "0 25px 60px rgba(0, 0, 0, 0.12)",
+        "luxury-lg": "0 40px 80px rgba(0, 0, 0, 0.15)",
+      },
+      transitionDuration: {
+        "400": "400ms",
       },
     },
   },

@@ -1,5 +1,9 @@
+"use client";
 import Link from "next/link";
 import ProductCard from "@/components/ui/ProductCard";
+import { AnimatedHeading, StaggerContainer, StaggerItem } from "@/components/ui/MotionElements";
+import { motion } from "framer-motion";
+import { ArrowRight, TrendingUp } from "lucide-react";
 
 interface Product {
   id: string;
@@ -19,34 +23,43 @@ interface Product {
 export default function BestSellers({ products }: { products: Product[] }) {
   if (!products.length) return null;
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
-      <div className="text-center mb-12">
-        <p className="text-gold-500 text-xs uppercase tracking-[0.4em] mb-2">Customer Favorites</p>
-        <h2 className="section-title">Best Sellers</h2>
-        <div className="gold-divider mx-auto" />
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+    <section className="py-20 px-4 max-w-7xl mx-auto">
+      <AnimatedHeading subtitle="Customer Favorites" title="Best Sellers" />
+
+      <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6" staggerDelay={0.1}>
         {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            slug={product.slug}
-            name={product.name}
-            brand={product.brand.name}
-            image={product.images[0]}
-            basePrice={product.basePrice}
-            discount={product.discount}
-            rating={product.averageRating}
-            reviews={product.totalReviews}
-            isNew={product.isNewArrival}
-            isBestSeller
-            variants={product.variants}
-          />
+          <StaggerItem key={product.id}>
+            <ProductCard
+              id={product.id}
+              slug={product.slug}
+              name={product.name}
+              brand={product.brand.name}
+              image={product.images[0]}
+              basePrice={product.basePrice}
+              discount={product.discount}
+              rating={product.averageRating}
+              reviews={product.totalReviews}
+              isNew={product.isNewArrival}
+              isBestSeller
+              variants={product.variants}
+            />
+          </StaggerItem>
         ))}
-      </div>
-      <div className="text-center mt-10">
-        <Link href="/shop?filter=bestsellers" className="btn-outline-gold">View All Best Sellers</Link>
-      </div>
+      </StaggerContainer>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.4 }}
+        className="text-center mt-12"
+      >
+        <Link href="/shop?filter=bestsellers" className="group inline-flex items-center gap-2 btn-outline-gold">
+          <TrendingUp size={14} />
+          View All Best Sellers
+          <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+        </Link>
+      </motion.div>
     </section>
   );
 }

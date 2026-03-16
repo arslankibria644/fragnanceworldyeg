@@ -28,10 +28,17 @@ body {
   font-family: var(--font-inter);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-playfair);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #1a1a1a;
 }
 
 @layer base {
@@ -44,7 +51,7 @@ h1, h2, h3, h4, h5, h6 {
   .btn-gold {
     @apply bg-gold-400 text-white font-semibold px-6 py-3 rounded-none
            hover:bg-gold-500 transition-all duration-300 uppercase tracking-widest
-           text-sm shadow-gold;
+           text-sm shadow-gold hover:shadow-gold-lg;
   }
 
   .btn-outline-gold {
@@ -59,7 +66,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-gray-900 font-serif;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 font-serif;
   }
 
   .gold-divider {
@@ -71,7 +78,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .product-card {
-    @apply bg-white overflow-hidden cursor-pointer card-hover;
+    @apply bg-white overflow-hidden cursor-pointer;
   }
 
   .nav-link {
@@ -81,7 +88,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .input-luxury {
     @apply w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none
-           focus:border-gold-400 transition-colors bg-white;
+           focus:border-gold-400 transition-all duration-300 bg-white hover:border-gray-300;
   }
 
   .badge-gold {
@@ -96,34 +103,64 @@ h1, h2, h3, h4, h5, h6 {
     @apply bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200
            animate-shimmer bg-[length:200%_100%];
   }
+
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-black/20 backdrop-blur-xl border border-white/10;
+  }
 }
 
 /* Swiper custom styles */
 .swiper-pagination-bullet {
+  background: rgba(212, 175, 55, 0.4) !important;
+  width: 30px !important;
+  height: 3px !important;
+  border-radius: 0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.swiper-pagination-bullet-active {
   background: #d4af37 !important;
+  width: 40px !important;
 }
 
 .swiper-button-next,
 .swiper-button-prev {
   color: #d4af37 !important;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 1;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 24px !important;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #f8f8f8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4af37;
-  border-radius: 3px;
+  background: linear-gradient(to bottom, #d4af37, #c9a227);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c9a227;
+  background: linear-gradient(to bottom, #c9a227, #a8821f);
 }
 
 /* Loading skeleton */
@@ -143,4 +180,23 @@ h1, h2, h3, h4, h5, h6 {
 
 .star-empty {
   color: #e5e7eb;
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.3s ease;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Focus visible styles */
+:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 2px;
 }

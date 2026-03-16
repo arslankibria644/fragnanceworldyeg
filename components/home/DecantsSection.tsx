@@ -1,6 +1,9 @@
+"use client";
 import Link from "next/link";
 import ProductCard from "@/components/ui/ProductCard";
-import { Droplets } from "lucide-react";
+import { Droplets, ArrowRight } from "lucide-react";
+import { AnimatedHeading, FadeUp, StaggerContainer, StaggerItem } from "@/components/ui/MotionElements";
+import { motion } from "framer-motion";
 
 interface Product {
   id: string;
@@ -19,20 +22,27 @@ interface Product {
 
 export default function DecantsSection({ products }: { products: Product[] }) {
   return (
-    <section className="py-16 bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <Droplets className="text-gold-400 mx-auto mb-4" size={32} />
-          <p className="text-gold-400 text-xs uppercase tracking-[0.4em] mb-2">Try Before You Buy</p>
-          <h2 className="section-title text-white">Fragrance Decants</h2>
-          <div className="gold-divider mx-auto" />
-          <p className="text-gray-400 mt-4 text-sm max-w-lg mx-auto">
+    <section className="py-20 bg-luxury-light relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-400/20 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <FadeUp>
+          <div className="flex justify-center mb-4">
+            <Droplets className="text-gold-500" size={36} />
+          </div>
+        </FadeUp>
+
+        <AnimatedHeading subtitle="Try Before You Buy" title="Fragrance Decants" />
+
+        <FadeUp delay={0.2}>
+          <p className="text-gray-500 text-center text-sm max-w-lg mx-auto mb-12 -mt-6">
             Sample luxury fragrances in small quantities. Available in 2ml, 5ml, 10ml, and 15ml sizes.
           </p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
+        </FadeUp>
+
+        <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12" staggerDelay={0.08}>
           {products.map((product) => (
-            <div key={product.id} className="bg-gray-800">
+            <StaggerItem key={product.id}>
               <ProductCard
                 id={product.id}
                 slug={product.slug}
@@ -47,13 +57,25 @@ export default function DecantsSection({ products }: { products: Product[] }) {
                 isBestSeller={product.isBestSeller}
                 variants={product.variants}
               />
-            </div>
+            </StaggerItem>
           ))}
-        </div>
-        <div className="text-center">
-          <Link href="/decants" className="btn-gold">Explore All Decants</Link>
-        </div>
+        </StaggerContainer>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <Link href="/decants" className="group inline-flex items-center gap-2 btn-gold">
+            <Droplets size={14} />
+            Explore All Decants
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
       </div>
+
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-400/20 to-transparent" />
     </section>
   );
 }

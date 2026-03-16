@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { items, paymentMethod, name, phone, email, address, city, notes, couponCode, subtotal, discount, shipping, total } = body;
+    const { items, paymentMethod, stripePaymentId, name, phone, email, address, city, notes, couponCode, subtotal, discount, shipping, total } = body;
 
     // Validate stock
     for (const item of items) {
@@ -28,6 +28,9 @@ export async function POST(req: NextRequest) {
         userId: (session.user as any).id,
         orderNumber,
         paymentMethod,
+        paymentStatus: stripePaymentId ? "PAID" : "PENDING",
+        stripePaymentId: stripePaymentId || null,
+        status: stripePaymentId ? "PROCESSING" : "PENDING",
         subtotal: Number(subtotal),
         discount: Number(discount) || 0,
         shipping: Number(shipping) || 0,

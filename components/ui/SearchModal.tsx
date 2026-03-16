@@ -1,9 +1,11 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { X, Search, Loader2 } from "lucide-react";
+import { X, Search, Loader2, ArrowRight, TrendingUp } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useDebounce } from "@/hooks/useDebounce";
+import { formatPrice } from "@/lib/utils";
 
 interface SearchResult {
   id: string;
@@ -15,6 +17,8 @@ interface SearchResult {
   discount: number;
 }
 
+const trendingSearches = ["Baccarat Rouge 540", "Dior Sauvage", "Tom Ford", "Chanel", "Decants"];
+
 export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -25,10 +29,13 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
+      document.body.style.overflow = "hidden";
     } else {
       setQuery("");
       setResults([]);
+      document.body.style.overflow = "";
     }
+    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
   useEffect(() => {
@@ -44,65 +51,173 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
       .finally(() => setLoading(false));
   }, [debouncedQuery]);
 
-  if (!isOpen) return null;
+  // Close on Escape
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (isOpen) window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [isOpen, onClose]);
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm" onClick={onClose}>
-      <div className="absolute top-0 left-0 right-0 bg-white p-4 md:p-6" onClick={(e) => e.stopPropagation()}>
-        <div className="max-w-3xl mx-auto">
-          <div className="flex items-center gap-3 border-b-2 border-gold-400 pb-2">
-            <Search size={22} className="text-gold-400" />
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Search fragrances, brands..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 text-lg outline-none bg-transparent"
-            />
-            {loading && <Loader2 size={18} className="animate-spin text-gold-400" />}
-            <button onClick={onClose} className="p-1 hover:text-gold-500 transition-colors">
-              <X size={22} />
-            </button>
-          </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="absolute top-0 left-0 right-0 bg-white shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="max-w-3xl mx-auto px-4 md:px-6 py-6">
+              {/* Search Input */}
+              <div className="flex items-center gap-4">
+                <Search size={22} className="text-gold-400 flex-shrink-0" />
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Search fragrances, brands, notes..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="flex-1 text-lg outline-none bg-transparent placeholder:text-gray-300 font-light"
+                />
+                {loading && <Loader2 size={18} className="animate-spin text-gold-400 flex-shrink-0" />}
+                <button
+                  onClick={onClose}
+                  className="p-2 hover:bg-gray-100 transition-colors flex-shrink-0"
+                >
+                  <X size={18} />
+                </button>
+              </div>
 
-          {results.length > 0 && (
-            <div className="mt-4 space-y-3 max-h-96 overflow-y-auto">
-              {results.map((product) => {
-                const discountedPrice = product.basePrice - (product.basePrice * product.discount) / 100;
-                return (
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-gold-400/40 to-transparent mt-4" />
+
+              {/* Trending - show when no query */}
+              {query.length < 2 && (
+                <div className="mt-5 pb-2">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                    <TrendingUp size={12} /> Trending Searches
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {trendingSearches.map((term) => (
+                      <button
+                        key={term}
+                        onClick={() => setQuery(term)}
+                        className="text-xs px-3 py-1.5 border border-gray-200 text-gray-600 hover:border-gold-400 hover:text-gold-600 hover:bg-gold-50 transition-all duration-200"
+                      >
+                        {term}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Results */}
+              {results.length > 0 && (
+                <div className="mt-4 max-h-[60vh] overflow-y-auto">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-3">
+                    {results.length} result{results.length !== 1 ? "s" : ""}
+                  </p>
+                  <div className="space-y-1">
+                    {results.map((product, i) => {
+                      const discountedPrice = product.basePrice - (product.basePrice * product.discount) / 100;
+                      return (
+                        <motion.div
+                          key={product.id}
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: i * 0.03 }}
+                        >
+                          <Link
+                            href={`/products/${product.slug}`}
+                            onClick={onClose}
+                            className="flex items-center gap-4 p-3 hover:bg-gray-50 transition-colors group"
+                          >
+                            <div className="w-14 h-14 bg-gray-50 flex-shrink-0 overflow-hidden border border-gray-100">
+                              {product.images[0] && (
+                                <Image
+                                  src={product.images[0]}
+                                  alt={product.name}
+                                  width={56}
+                                  height={56}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-gray-900 text-sm truncate group-hover:text-gold-600 transition-colors">
+                                {product.name}
+                              </p>
+                              <p className="text-[10px] text-gold-500 uppercase tracking-widest mt-0.5">
+                                {product.brand.name}
+                              </p>
+                            </div>
+                            <div className="text-right flex-shrink-0">
+                              <p className="font-semibold text-sm text-gray-900">
+                                {formatPrice(discountedPrice)}
+                              </p>
+                              {product.discount > 0 && (
+                                <p className="text-[10px] text-gray-400 line-through">
+                                  {formatPrice(product.basePrice)}
+                                </p>
+                              )}
+                            </div>
+                            <ArrowRight size={14} className="text-gray-300 group-hover:text-gold-400 transition-colors flex-shrink-0" />
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+
+                  {/* View all link */}
                   <Link
-                    key={product.id}
-                    href={`/products/${product.slug}`}
+                    href={`/shop?search=${encodeURIComponent(query)}`}
                     onClick={onClose}
-                    className="flex items-center gap-4 p-3 hover:bg-gray-50 transition-colors"
+                    className="flex items-center justify-center gap-2 mt-4 py-3 text-sm text-gold-500 hover:text-gold-600 border-t border-gray-100 transition-colors group"
                   >
-                    <div className="w-14 h-14 bg-gray-100 flex-shrink-0 overflow-hidden">
-                      {product.images[0] && (
-                        <Image src={product.images[0]} alt={product.name} width={56} height={56} className="w-full h-full object-cover" />
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 truncate">{product.name}</p>
-                      <p className="text-xs text-gray-500">{product.brand.name}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-semibold text-gold-500">PKR {discountedPrice.toLocaleString()}</p>
-                      {product.discount > 0 && (
-                        <p className="text-xs text-gray-400 line-through">PKR {product.basePrice.toLocaleString()}</p>
-                      )}
-                    </div>
+                    View all results
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
-                );
-              })}
-            </div>
-          )}
+                </div>
+              )}
 
-          {query.length >= 2 && !loading && results.length === 0 && (
-            <p className="mt-6 text-center text-gray-500 text-sm">No fragrances found for "{query}"</p>
-          )}
-        </div>
-      </div>
-    </div>
+              {/* No results */}
+              {query.length >= 2 && !loading && results.length === 0 && (
+                <div className="mt-6 pb-4 text-center">
+                  <p className="text-gray-400 text-sm mb-1">No fragrances found for &ldquo;{query}&rdquo;</p>
+                  <p className="text-xs text-gray-300">Try a different keyword or browse our collection</p>
+                  <Link
+                    href="/shop"
+                    onClick={onClose}
+                    className="inline-flex items-center gap-1 mt-3 text-xs text-gold-500 hover:text-gold-600 transition-colors"
+                  >
+                    Browse Shop <ArrowRight size={12} />
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Keyboard hint */}
+            <div className="border-t border-gray-100 py-2 px-6">
+              <div className="max-w-3xl mx-auto flex items-center justify-end gap-4">
+                <span className="text-[10px] text-gray-300">
+                  Press <kbd className="px-1.5 py-0.5 bg-gray-100 text-gray-500 text-[10px] border border-gray-200">ESC</kbd> to close
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

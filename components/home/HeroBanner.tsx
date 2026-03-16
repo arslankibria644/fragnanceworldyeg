@@ -6,81 +6,141 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import Link from "next/link";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 const slides = [
   {
     id: 1,
-    title: "The Art of Fragrance",
+    title: "The Art of",
+    titleAccent: "Fragrance",
     subtitle: "Discover Luxury Perfumes",
-    description: "Explore our curated collection of the world's finest fragrances",
-    cta: "Shop Now",
+    description: "Explore our curated collection of the world's finest fragrances from legendary maisons",
+    cta: "Shop Collection",
     ctaLink: "/shop",
-    bg: "from-gray-900 via-gray-800 to-black",
-    accent: "Dior • Chanel • Tom Ford",
+    accent: "Dior \u2022 Chanel \u2022 Tom Ford",
+    video: "/videos/hero-perfume.mp4",
   },
   {
     id: 2,
-    title: "Exclusive Decants",
+    title: "Exclusive",
+    titleAccent: "Decants",
     subtitle: "Try Before You Commit",
-    description: "Sample luxury fragrances in 2ml, 5ml, 10ml, and 15ml sizes",
+    description: "Sample luxury fragrances in 2ml, 5ml, 10ml, and 15ml sizes at unbeatable prices",
     cta: "Explore Decants",
     ctaLink: "/decants",
-    bg: "from-yellow-950 via-amber-950 to-black",
     accent: "Starting from PKR 500",
+    video: "/videos/hero-decant.mp4",
   },
   {
     id: 3,
-    title: "New Arrivals",
+    title: "New",
+    titleAccent: "Arrivals",
     subtitle: "Fresh From The Maison",
-    description: "The latest additions to our luxury fragrance collection",
-    cta: "View New Arrivals",
+    description: "The latest additions to our luxury fragrance collection, exclusively curated for you",
+    cta: "View Collection",
     ctaLink: "/shop?filter=new",
-    bg: "from-zinc-900 via-neutral-900 to-black",
     accent: "Limited Edition",
+    video: "/videos/hero-gold-liquid.mp4",
   },
 ];
 
 export default function HeroBanner() {
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <Swiper
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         effect="fade"
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
+        autoplay={{ delay: 6000, disableOnInteraction: false }}
+        pagination={{
+          clickable: true,
+          renderBullet: (index: number, className: string) =>
+            `<span class="${className} !w-8 !h-1 !rounded-none"></span>`,
+        }}
         navigation
         loop
-        className="h-[60vh] md:h-[80vh] lg:h-screen max-h-[800px]"
+        className="h-[70vh] md:h-[85vh] lg:h-screen max-h-[900px]"
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className={`relative h-full bg-gradient-to-r ${slide.bg} flex items-center justify-center`}>
-              {/* Decorative elements */}
-              <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gold-400/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gold-400/10 rounded-full blur-2xl" />
-              </div>
+            <div className="relative h-full bg-black flex items-center justify-center overflow-hidden">
+              {/* Video Background */}
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover opacity-60"
+              >
+                <source src={slide.video} type="video/mp4" />
+              </video>
 
-              <div className="relative z-10 text-center px-4 max-w-3xl mx-auto animate-fade-in">
-                <p className="text-gold-400 text-xs uppercase tracking-[0.5em] mb-4">{slide.accent}</p>
-                <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white font-bold leading-tight mb-4">
-                  {slide.title}
+              {/* Lighter overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
+
+              {/* Subtle gold glow - static */}
+              <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-gold-400 rounded-full blur-[150px] opacity-[0.03]" />
+              <div className="absolute bottom-1/3 right-1/3 w-[400px] h-[400px] bg-gold-300 rounded-full blur-[120px] opacity-[0.02]" />
+
+              {/* Content */}
+              <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                {/* Accent tag */}
+                <div className="flex items-center justify-center gap-2 mb-6">
+                  <Sparkles size={14} className="text-gold-400" />
+                  <span className="text-gold-400 text-xs uppercase tracking-[0.5em] font-medium">
+                    {slide.accent}
+                  </span>
+                  <Sparkles size={14} className="text-gold-400" />
+                </div>
+
+                {/* Title */}
+                <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-bold leading-[1.1] mb-4">
+                  {slide.title}{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-400 to-gold-300">
+                    {slide.titleAccent}
+                  </span>
                 </h1>
-                <h2 className="font-serif text-xl md:text-2xl text-gold-300 mb-6 italic">{slide.subtitle}</h2>
-                <p className="text-gray-300 text-sm md:text-base mb-8 max-w-md mx-auto">{slide.description}</p>
+
+                {/* Subtitle */}
+                <h2 className="font-serif text-xl md:text-2xl text-gold-200/70 mb-6 italic">
+                  {slide.subtitle}
+                </h2>
+
+                {/* Description */}
+                <p className="text-gray-300 text-sm md:text-base mb-10 max-w-lg mx-auto leading-relaxed">
+                  {slide.description}
+                </p>
+
+                {/* Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href={slide.ctaLink} className="btn-gold">
-                    {slide.cta}
+                  <Link
+                    href={slide.ctaLink}
+                    className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-gold-400 to-gold-500 text-white font-semibold px-8 py-4 uppercase tracking-widest text-sm overflow-hidden transition-all duration-500 hover:shadow-gold-lg"
+                  >
+                    <span className="relative z-10">{slide.cta}</span>
+                    <ArrowRight size={16} className="relative z-10 group-hover:translate-x-1 transition-transform" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-gold-500 to-gold-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </Link>
-                  <Link href="/decants" className="btn-outline-gold border-white text-white hover:bg-white hover:text-black">
+                  <Link
+                    href="/decants"
+                    className="group inline-flex items-center justify-center gap-2 border border-white/20 text-white/80 font-semibold px-8 py-4 uppercase tracking-widest text-sm hover:border-gold-400/50 hover:text-gold-400 transition-all duration-500 backdrop-blur-sm"
+                  >
                     Try Decants
                   </Link>
                 </div>
               </div>
+
+              {/* Bottom gradient fade */}
+              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/70 to-transparent" />
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
+        <span className="text-white/40 text-[10px] uppercase tracking-widest">Scroll</span>
+        <div className="w-[1px] h-8 bg-gradient-to-b from-gold-400 to-transparent" />
+      </div>
     </div>
   );
 }

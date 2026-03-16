@@ -3,17 +3,19 @@ import Anthropic from "@anthropic-ai/sdk";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session || (session.user as any).role !== "ADMIN") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return NextResponse.json({ error: "ANTHROPIC_API_KEY is not configured" }, { status: 500 });
+  }
   try {
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const { productName, brand, notes, gender, type } = await req.json();
     const message = await client.messages.create({
-      model: "claude-opus-4-6",
+      model: "claude-haiku-4-5-20251001",
       max_tokens: 500,
       messages: [
         {
@@ -32,6 +34,10 @@ Write 2-3 paragraphs that are poetic, sophisticated, and appeal to luxury fragra
     const description = (message.content[0] as any).text;
     return NextResponse.json({ description });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to generate description" }, { status: 500 });
+    const msg = error.message || "";
+    if (msg.includes("credit balance")) {
+      return NextResponse.json({ error: "AI credits exhausted. Please add credits at console.anthropic.com" }, { status: 402 });
+    }
+    return NextResponse.json({ error: msg || "Failed to generate description" }, { status: 500 });
   }
 }
