@@ -1,6 +1,7 @@
 "use client";
 import { useState, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -63,8 +64,14 @@ function LoginContent() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <h1 className="font-serif text-3xl font-bold text-gray-900 tracking-widest">LUXE SCENTS</h1>
-            <p className="text-gold-500 text-[9px] tracking-[0.4em] uppercase">Premium Fragrances</p>
+            <Image
+              src="/logo.png"
+              alt="Fragrance World YEG"
+              width={320}
+              height={211}
+              priority
+              className="h-20 w-auto object-contain mx-auto"
+            />
           </Link>
         </div>
 

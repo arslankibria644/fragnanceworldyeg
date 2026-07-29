@@ -220,4 +220,4 @@ Access at `/admin`:
 After seeding:
 - Code: `WELCOME10`
 - Discount: 10% off
-- Min order: PKR 5,000
+- Min order: CAD 10

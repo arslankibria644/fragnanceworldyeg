@@ -27,12 +27,12 @@ export default function AdminSidebar() {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <aside className={`bg-gray-900 text-gray-300 flex flex-col transition-all duration-300 ${collapsed ? "w-16" : "w-64"} flex-shrink-0`}>
+    <aside className={`bg-forest-900 text-forest-100 flex flex-col transition-all duration-300 ${collapsed ? "w-16" : "w-64"} flex-shrink-0`}>
       {/* Logo */}
-      <div className={`p-4 border-b border-gray-800 flex items-center ${collapsed ? "justify-center" : "justify-between"}`}>
+      <div className={`p-4 border-b border-forest-800 flex items-center ${collapsed ? "justify-center" : "justify-between"}`}>
         {!collapsed && (
           <div>
-            <p className="font-serif text-white text-sm tracking-widest">LUXE SCENTS</p>
+            <p className="font-serif text-white text-sm tracking-widest">FRAGRANCE WORLD YEG</p>
             <p className="text-gold-400 text-[9px] tracking-wider">Admin Panel</p>
           </div>
         )}
@@ -50,7 +50,7 @@ export default function AdminSidebar() {
               key={href}
               href={href}
               className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-all ${
-                active ? "bg-gray-800 text-gold-400 border-r-2 border-gold-400" : "hover:bg-gray-800 hover:text-white"
+                active ? "bg-forest-800 text-gold-400 border-r-2 border-gold-400" : "hover:bg-forest-800 hover:text-white"
               } ${collapsed ? "justify-center" : ""}`}
               title={collapsed ? label : undefined}
             >
@@ -62,7 +62,7 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Sign Out */}
-      <div className="border-t border-gray-800 p-4">
+      <div className="border-t border-forest-800 p-4">
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
           className={`flex items-center gap-3 text-sm text-gray-400 hover:text-red-400 transition-colors w-full ${collapsed ? "justify-center" : ""}`}

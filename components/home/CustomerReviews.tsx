@@ -9,10 +9,10 @@ import { motion } from "framer-motion";
 
 const reviews = [
   { id: 1, name: "Ayesha Khan", location: "Lahore", rating: 5, text: "Amazing quality! Got a decant of Baccarat Rouge 540 and it's absolutely identical to the original. Will definitely order again.", product: "Baccarat Rouge 540 Decant", initials: "AK" },
-  { id: 2, name: "Ahmed Malik", location: "Karachi", rating: 5, text: "Fast delivery and packaging was beautiful. The Dior Sauvage I ordered is 100% authentic. Luxe Scents is now my go-to for fragrances.", product: "Dior Sauvage 100ml", initials: "AM" },
+  { id: 2, name: "Ahmed Malik", location: "Karachi", rating: 5, text: "Fast delivery and packaging was beautiful. The Dior Sauvage I ordered is 100% authentic. Fragrance World YEG is now my go-to for fragrances.", product: "Dior Sauvage 100ml", initials: "AM" },
   { id: 3, name: "Sara Ahmed", location: "Islamabad", rating: 5, text: "Ordered three decants to test before buying full bottles. Such a smart concept! The fragrances are spot on and customer service is excellent.", product: "Multiple Decants", initials: "SA" },
   { id: 4, name: "Usman Raza", location: "Faisalabad", rating: 4, text: "Great selection of niche fragrances that you won't find elsewhere in Pakistan. Packaging is premium and delivery was quick.", product: "Tom Ford Oud Wood", initials: "UR" },
-  { id: 5, name: "Fatima Zahra", location: "Lahore", rating: 5, text: "Absolutely love Luxe Scents! The quality is unmatched and prices are reasonable for luxury fragrances. Highly recommend!", product: "Chanel No. 5", initials: "FZ" },
+  { id: 5, name: "Fatima Zahra", location: "Lahore", rating: 5, text: "Absolutely love Fragrance World YEG! The quality is unmatched and prices are reasonable for luxury fragrances. Highly recommend!", product: "Chanel No. 5", initials: "FZ" },
 ];
 
 export default function CustomerReviews() {

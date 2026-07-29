@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { ShoppingBag, Heart, Search, Menu, X, User, ChevronDown, Package, LogOut, Settings } from "lucide-react";
@@ -45,8 +46,8 @@ export default function Navbar() {
   return (
     <>
       {/* Announcement Bar */}
-      <div className="bg-black text-gold-400 text-center py-2.5 text-xs tracking-widest uppercase">
-        Free shipping on orders over PKR 5,000 | Authentic Fragrances Guaranteed
+      <div className="bg-forest-900 text-gold-300 text-center py-2.5 text-xs tracking-widest uppercase">
+        Free shipping on orders over CAD 10 | Authentic Fragrances Guaranteed
       </div>
 
       {/* Main Navbar */}
@@ -56,7 +57,7 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-20 md:h-24">
             {/* Mobile Menu Button */}
             <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2">
               <motion.div animate={{ rotate: mobileOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
@@ -65,17 +66,17 @@ export default function Navbar() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex flex-col items-center group">
-              <motion.span
-                whileHover={{ letterSpacing: "0.2em" }}
-                transition={{ duration: 0.3 }}
-                className="font-serif text-xl md:text-2xl font-bold text-gray-900 tracking-widest"
-              >
-                LUXE SCENTS
-              </motion.span>
-              <span className="text-gold-400 text-[8px] tracking-[0.4em] uppercase group-hover:text-gold-500 transition-colors">
-                Premium Fragrances
-              </span>
+            <Link href="/" className="flex items-center group" aria-label="Fragrance World YEG — Home">
+              <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.3 }}>
+                <Image
+                  src="/logo.png"
+                  alt="Fragrance World YEG"
+                  width={500}
+                  height={161}
+                  priority
+                  className="h-16 md:h-20 w-auto object-contain"
+                />
+              </motion.div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -89,7 +90,7 @@ export default function Navbar() {
                   {link.label}
                   {/* Active/hover underline */}
                   <span
-                    className={`absolute -bottom-1 left-0 h-[2px] bg-gold-400 transition-all duration-300 ${
+                    className={`absolute -bottom-1 left-0 h-[2px] bg-forest-600 transition-all duration-300 ${
                       pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   />
@@ -103,13 +104,13 @@ export default function Navbar() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setSearchOpen(true)}
-                className="p-2 hover:text-gold-500 transition-colors"
+                className="p-2 hover:text-forest-600 transition-colors"
               >
                 <Search size={20} />
               </motion.button>
 
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <Link href="/wishlist" className="p-2 hover:text-gold-500 transition-colors relative block">
+                <Link href="/wishlist" className="p-2 hover:text-forest-600 transition-colors relative block">
                   <Heart size={20} />
                   <AnimatePresence>
                     {wishlistCount > 0 && (
@@ -127,7 +128,7 @@ export default function Navbar() {
               </motion.div>
 
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <Link href="/cart" className="p-2 hover:text-gold-500 transition-colors relative block">
+                <Link href="/cart" className="p-2 hover:text-forest-600 transition-colors relative block">
                   <ShoppingBag size={20} />
                   <AnimatePresence>
                     {itemCount > 0 && (
@@ -150,7 +151,7 @@ export default function Navbar() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={(e) => { e.stopPropagation(); setUserMenuOpen(!userMenuOpen); }}
-                  className="flex items-center space-x-1 p-2 hover:text-gold-500 transition-colors"
+                  className="flex items-center space-x-1 p-2 hover:text-forest-600 transition-colors"
                 >
                   <User size={20} />
                   {session && (
@@ -176,11 +177,11 @@ export default function Navbar() {
                             <p className="text-sm font-medium text-gray-900 truncate">{session.user?.name}</p>
                             <p className="text-xs text-gray-500 truncate">{session.user?.email}</p>
                           </div>
-                          <Link href="/dashboard" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-gold-50 hover:text-gold-600 transition-colors">
+                          <Link href="/dashboard" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-forest-50 hover:text-forest-700 transition-colors">
                             <Package size={15} /> My Orders
                           </Link>
                           {(session.user as any)?.role === "ADMIN" && (
-                            <Link href="/admin" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-gold-50 hover:text-gold-600 transition-colors">
+                            <Link href="/admin" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-forest-50 hover:text-forest-700 transition-colors">
                               <Settings size={15} /> Admin Panel
                             </Link>
                           )}
@@ -193,10 +194,10 @@ export default function Navbar() {
                         </>
                       ) : (
                         <>
-                          <Link href="/login" onClick={() => setUserMenuOpen(false)} className="block px-4 py-3 text-sm hover:bg-gold-50 hover:text-gold-600 transition-colors font-medium">
+                          <Link href="/login" onClick={() => setUserMenuOpen(false)} className="block px-4 py-3 text-sm hover:bg-forest-50 hover:text-forest-700 transition-colors font-medium">
                             Sign In
                           </Link>
-                          <Link href="/register" onClick={() => setUserMenuOpen(false)} className="block px-4 py-3 text-sm hover:bg-gold-50 hover:text-gold-600 transition-colors border-t border-gray-50">
+                          <Link href="/register" onClick={() => setUserMenuOpen(false)} className="block px-4 py-3 text-sm hover:bg-forest-50 hover:text-forest-700 transition-colors border-t border-gray-50">
                             Create Account
                           </Link>
                         </>
@@ -230,7 +231,7 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className={`block py-3 px-2 nav-link text-sm ${pathname === link.href ? "text-gold-500 bg-gold-50" : ""}`}
+                      className={`block py-3 px-2 nav-link text-sm ${pathname === link.href ? "text-forest-600 bg-forest-50" : ""}`}
                     >
                       {link.label}
                     </Link>

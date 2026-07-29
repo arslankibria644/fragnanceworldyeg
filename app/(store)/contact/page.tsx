@@ -29,7 +29,7 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Contact Info */}
         <div className="space-y-6">
-          <div className="bg-gray-900 p-8 text-white h-full">
+          <div className="bg-forest-900 p-8 text-white h-full">
             <h2 className="font-serif text-xl mb-6">Get In Touch</h2>
             <div className="space-y-5">
               <div className="flex items-start gap-4">

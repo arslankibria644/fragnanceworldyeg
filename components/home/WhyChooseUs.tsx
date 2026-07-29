@@ -4,7 +4,7 @@ import { StaggerContainer, StaggerItem } from "@/components/ui/MotionElements";
 
 const features = [
   { icon: Shield, title: "100% Authentic", description: "Sourced directly from authorized distributors worldwide", stat: "500+", statLabel: "Brands" },
-  { icon: Truck, title: "Fast Delivery", description: "Free shipping on orders over PKR 5,000 across Pakistan", stat: "24hr", statLabel: "Dispatch" },
+  { icon: Truck, title: "Fast Delivery", description: "Free shipping on orders over CAD 10 across Pakistan", stat: "24hr", statLabel: "Dispatch" },
   { icon: Award, title: "Premium Quality", description: "Curated selection of the world's finest luxury fragrances", stat: "10K+", statLabel: "Happy Clients" },
   { icon: RefreshCw, title: "Easy Returns", description: "7-day hassle-free return policy on all products", stat: "100%", statLabel: "Satisfaction" },
 ];

@@ -130,13 +130,13 @@ export default function DecantListing({ decants, brands }: { decants: Product[];
             <div className="hidden md:flex items-center border border-gray-200">
               <button
                 onClick={() => setGridCols(3)}
-                className={`p-2.5 transition-colors ${gridCols === 3 ? "bg-gray-900 text-white" : "text-gray-400 hover:text-gray-600"}`}
+                className={`p-2.5 transition-colors ${gridCols === 3 ? "bg-forest-800 text-white" : "text-gray-400 hover:text-gray-600"}`}
               >
                 <Grid3X3 size={16} />
               </button>
               <button
                 onClick={() => setGridCols(4)}
-                className={`p-2.5 transition-colors ${gridCols === 4 ? "bg-gray-900 text-white" : "text-gray-400 hover:text-gray-600"}`}
+                className={`p-2.5 transition-colors ${gridCols === 4 ? "bg-forest-800 text-white" : "text-gray-400 hover:text-gray-600"}`}
               >
                 <LayoutGrid size={16} />
               </button>

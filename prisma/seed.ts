@@ -210,7 +210,7 @@ async function main() {
       freeShipping: false,
     },
   });
-  console.log("✅ Sample coupon created: WELCOME10 (10% off orders over PKR 5,000)");
+  console.log("✅ Sample coupon created: WELCOME10 (10% off orders over CAD 10)");
 
   // Create theme settings
   await prisma.themeSettings.create({

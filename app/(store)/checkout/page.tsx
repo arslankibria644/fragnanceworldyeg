@@ -307,7 +307,7 @@ export default function CheckoutPage() {
               </h1>
               <p className="text-lg text-gold-600 font-medium mb-4">Your order has been placed successfully!</p>
               <p className="text-gray-500 mb-6">
-                Thank you for shopping with <span className="font-serif font-semibold text-gray-700">Luxe Scents</span>.
+                Thank you for shopping with <span className="font-serif font-semibold text-gray-700">Fragrance World YEG</span>.
                 We&apos;re preparing your fragrance with care.
               </p>
             </div>

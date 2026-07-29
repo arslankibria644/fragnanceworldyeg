@@ -147,7 +147,7 @@ async function main() {
     update: {},
     create: { code: 'WELCOME10', type: 'PERCENTAGE', value: 10, minOrder: 5000, isActive: true, freeShipping: false },
   });
-  console.log('✅ Sample coupon created: WELCOME10 (10% off orders over PKR 5,000)');
+  console.log('✅ Sample coupon created: WELCOME10 (10% off orders over CAD 10)');
 
   await prisma.themeSettings.create({ data: { primaryColor: '#d4af37', secondaryColor: '#1a1a1a', accentColor: '#c9a227', fontHeading: 'Playfair Display', fontBody: 'Inter' } }).catch(() => {});
   console.log('✅ Theme settings initialized');

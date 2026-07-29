@@ -6,18 +6,18 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-forest-900 text-forest-100">
       {/* Newsletter */}
-      <div className="bg-black py-16 relative overflow-hidden">
+      <div className="bg-luxury-darker py-16 relative overflow-hidden">
         <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.03, 0.06, 0.03] }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.04, 0.08, 0.04] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold-400 rounded-full blur-[200px]"
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <FadeUp>
-            <h3 className="font-serif text-3xl md:text-4xl text-white mb-3">Join the Luxe Circle</h3>
+            <h3 className="font-serif text-3xl md:text-4xl text-white mb-3">Join the Fragrance Circle</h3>
             <p className="text-gray-400 text-sm mb-8 max-w-md mx-auto">Subscribe for exclusive offers, new arrivals, and fragrance tips from our experts</p>
             <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
               <input
@@ -46,8 +46,8 @@ export default function Footer() {
             {/* Brand */}
             <StaggerItem>
               <div>
-                <h2 className="font-serif text-2xl text-white mb-1 tracking-widest">LUXE SCENTS</h2>
-                <p className="text-gold-400 text-[9px] tracking-[0.4em] uppercase mb-5">Premium Fragrances</p>
+                <h2 className="font-serif text-2xl text-white mb-1 tracking-widest">FRAGRANCE WORLD</h2>
+                <p className="text-gold-400 text-[9px] tracking-[0.4em] uppercase mb-5">YEG &middot; Premium Fragrances</p>
                 <p className="text-sm text-gray-400 leading-relaxed mb-6">
                   Your destination for authentic luxury perfumes and exclusive decants. Every bottle tells a story.
                 </p>
@@ -58,7 +58,7 @@ export default function Footer() {
                       href="#"
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="p-2.5 border border-gray-700 hover:border-gold-400 hover:text-gold-400 hover:bg-gold-400/10 transition-all duration-300"
+                      className="p-2.5 border border-forest-700 hover:border-gold-400 hover:text-gold-400 hover:bg-gold-400/10 transition-all duration-300"
                     >
                       <Icon size={16} />
                     </motion.a>
@@ -138,10 +138,10 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800 py-6">
+      <div className="border-t border-forest-800 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-500 flex items-center gap-1">
-            Made with <Heart size={10} className="text-gold-400 fill-gold-400" /> by Luxe Scents &copy; 2024
+            Made with <Heart size={10} className="text-gold-400 fill-gold-400" /> by Fragrance World YEG &copy; 2024
           </p>
           <div className="flex items-center gap-5">
             <Link href="/privacy-policy" className="text-xs text-gray-500 hover:text-gold-400 transition-colors">Privacy</Link>
@@ -149,7 +149,7 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-2">
             {["VISA", "MC", "STRIPE"].map((name) => (
-              <span key={name} className="text-[10px] text-gray-500 bg-gray-800/50 border border-gray-700/50 px-3 py-1.5 font-medium tracking-wider">{name}</span>
+              <span key={name} className="text-[10px] text-gray-500 bg-forest-800/40 border border-forest-700/50 px-3 py-1.5 font-medium tracking-wider">{name}</span>
             ))}
           </div>
         </div>

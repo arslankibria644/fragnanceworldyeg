@@ -97,7 +97,7 @@ export default function ProductCard({
               </motion.span>
             )}
             {isBestSeller && (
-              <span className="bg-gray-900 text-white text-[10px] px-3 py-1 uppercase tracking-wider font-medium">
+              <span className="bg-forest-800 text-white text-[10px] px-3 py-1 uppercase tracking-wider font-medium">
                 Best Seller
               </span>
             )}
@@ -131,7 +131,7 @@ export default function ProductCard({
           <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out">
             <button
               onClick={handleAddToCart}
-              className="w-full bg-gray-900/95 backdrop-blur-sm text-white py-3.5 text-xs uppercase tracking-widest hover:bg-gold-400 transition-colors flex items-center justify-center gap-2 font-medium"
+              className="w-full bg-forest-800/95 backdrop-blur-sm text-white py-3.5 text-xs uppercase tracking-widest hover:bg-gold-400 transition-colors flex items-center justify-center gap-2 font-medium"
             >
               <ShoppingBag size={14} />
               Quick Add

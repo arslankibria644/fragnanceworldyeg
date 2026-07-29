@@ -6,8 +6,8 @@ import ThemeProvider from "@/components/providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: {
-    default: "Luxe Scents - Premium Fragrances & Decants",
-    template: "%s | Luxe Scents",
+    default: "Fragrance World YEG - Premium Fragrances & Decants",
+    template: "%s | Fragrance World YEG",
   },
   description:
     "Discover the world's finest perfumes and exclusive decants. Shop luxury fragrances from top brands like Dior, Chanel, Tom Ford, and more.",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: process.env.NEXT_PUBLIC_APP_URL,
-    siteName: "Luxe Scents",
-    title: "Luxe Scents - Premium Fragrances & Decants",
+    siteName: "Fragrance World YEG",
+    title: "Fragrance World YEG - Premium Fragrances & Decants",
     description:
       "Discover the world's finest perfumes and exclusive decants.",
     images: [
@@ -32,13 +32,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Luxe Scents",
+        alt: "Fragrance World YEG",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Luxe Scents - Premium Fragrances & Decants",
+    title: "Fragrance World YEG - Premium Fragrances & Decants",
     description: "Discover the world's finest perfumes and exclusive decants.",
   },
   robots: {

@@ -5,11 +5,13 @@
 @tailwind utilities;
 
 :root {
-  --primary: #d4af37;
-  --primary-dark: #c9a227;
-  --secondary: #1a1a1a;
-  --background: #ffffff;
-  --foreground: #1a1a1a;
+  --primary: #1f6043;
+  --primary-dark: #163d2d;
+  --accent: #d4af37;
+  --accent-dark: #c9a227;
+  --secondary: #0f2d21;
+  --background: #f6faf7;
+  --foreground: #122c20;
   --font-playfair: 'Playfair Display', serif;
   --font-inter: 'Inter', sans-serif;
 }
@@ -37,8 +39,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Selection color */
 ::selection {
-  background: rgba(212, 175, 55, 0.3);
-  color: #1a1a1a;
+  background: rgba(31, 96, 67, 0.25);
+  color: #0f2d21;
 }
 
 @layer base {
@@ -48,6 +50,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @layer components {
+  .btn-green {
+    @apply bg-forest-600 text-white font-semibold px-6 py-3 rounded-none
+           hover:bg-forest-700 transition-all duration-300 uppercase tracking-widest
+           text-sm shadow-green hover:shadow-green-lg;
+  }
+
+  .btn-outline-green {
+    @apply border border-forest-600 text-forest-700 font-semibold px-6 py-3 rounded-none
+           hover:bg-forest-600 hover:text-white transition-all duration-300 uppercase tracking-widest
+           text-sm;
+  }
+
   .btn-gold {
     @apply bg-gold-400 text-white font-semibold px-6 py-3 rounded-none
            hover:bg-gold-500 transition-all duration-300 uppercase tracking-widest
@@ -61,16 +75,20 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .btn-dark {
-    @apply bg-black text-white font-semibold px-6 py-3 rounded-none
-           hover:bg-gray-900 transition-all duration-300 uppercase tracking-widest text-sm;
+    @apply bg-forest-900 text-white font-semibold px-6 py-3 rounded-none
+           hover:bg-forest-800 transition-all duration-300 uppercase tracking-widest text-sm;
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 font-serif;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-forest-900 font-serif;
   }
 
   .gold-divider {
     @apply w-16 h-0.5 bg-gold-400 my-4;
+  }
+
+  .green-divider {
+    @apply w-16 h-0.5 bg-forest-600 my-4;
   }
 
   .card-hover {
@@ -82,21 +100,25 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .nav-link {
-    @apply text-gray-700 hover:text-gold-500 transition-colors duration-200
+    @apply text-forest-800 hover:text-forest-600 transition-colors duration-200
            uppercase tracking-widest text-xs font-medium;
   }
 
   .input-luxury {
     @apply w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none
-           focus:border-gold-400 transition-all duration-300 bg-white hover:border-gray-300;
+           focus:border-forest-500 transition-all duration-300 bg-white hover:border-gray-300;
   }
 
   .badge-gold {
     @apply inline-block bg-gold-400 text-white text-xs px-2 py-0.5 uppercase tracking-wider;
   }
 
+  .badge-green {
+    @apply inline-block bg-forest-600 text-white text-xs px-2 py-0.5 uppercase tracking-wider;
+  }
+
   .badge-dark {
-    @apply inline-block bg-gray-900 text-white text-xs px-2 py-0.5 uppercase tracking-wider;
+    @apply inline-block bg-forest-900 text-white text-xs px-2 py-0.5 uppercase tracking-wider;
   }
 
   .shimmer {
@@ -116,7 +138,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Swiper custom styles */
 .swiper-pagination-bullet {
-  background: rgba(212, 175, 55, 0.4) !important;
+  background: rgba(31, 96, 67, 0.4) !important;
   width: 30px !important;
   height: 3px !important;
   border-radius: 0 !important;
@@ -124,13 +146,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .swiper-pagination-bullet-active {
-  background: #d4af37 !important;
+  background: #1f6043 !important;
   width: 40px !important;
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-  color: #d4af37 !important;
+  color: #1f6043 !important;
   opacity: 0.6;
   transition: opacity 0.3s ease;
 }
@@ -151,16 +173,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f8f8f8;
+  background: #eef5f0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #d4af37, #c9a227);
+  background: linear-gradient(to bottom, #1f6043, #163d2d);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #c9a227, #a8821f);
+  background: linear-gradient(to bottom, #163d2d, #0f2d21);
 }
 
 /* Loading skeleton */
@@ -177,6 +199,7 @@ h1, h2, h3, h4, h5, h6 {
 .star-filled {
   color: #d4af37;
 }
+/* (gold retained for star ratings as a warm accent) */
 
 .star-empty {
   color: #e5e7eb;
@@ -197,6 +220,6 @@ img {
 
 /* Focus visible styles */
 :focus-visible {
-  outline: 2px solid #d4af37;
+  outline: 2px solid #1f6043;
   outline-offset: 2px;
 }
