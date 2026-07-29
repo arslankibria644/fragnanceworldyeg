@@ -5,6 +5,7 @@ import AuthProvider from "@/components/providers/AuthProvider";
 import ThemeProvider from "@/components/providers/ThemeProvider";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
   title: {
     default: "Fragrance World YEG - Premium Fragrances & Decants",
     template: "%s | Fragrance World YEG",

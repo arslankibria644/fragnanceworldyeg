@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description: "Browse our complete collection of luxury perfumes and decants",
 };
 
+// Reads live data from the DB — render per request instead of prerendering at build time.
+export const dynamic = "force-dynamic";
+
 async function getShopData() {
   const [brands, categories] = await Promise.all([
     prisma.brand.findMany({ orderBy: { name: "asc" } }),

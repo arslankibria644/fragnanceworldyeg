@@ -147,6 +147,13 @@ export default function CheckoutPage() {
 
   const paymentMethod = watch("paymentMethod");
 
+  // Redirect to cart when it's empty — client-side only (never call router.push during render/SSR).
+  useEffect(() => {
+    if (items.length === 0 && !orderPlacedRef.current && !orderSuccess) {
+      router.push("/cart");
+    }
+  }, [items.length, orderSuccess, router]);
+
   const createOrder = async (orderData: any, stripePaymentId?: string) => {
     const res = await fetch("/api/orders", {
       method: "POST",
@@ -247,9 +254,8 @@ export default function CheckoutPage() {
     setPendingOrderData(null);
   };
 
-  // Only redirect to cart if items are empty AND order was not just placed
+  // Cart empty (and no order just placed): render nothing while the effect above redirects to /cart.
   if (items.length === 0 && !orderPlacedRef.current && !orderSuccess) {
-    router.push("/cart");
     return null;
   }
 

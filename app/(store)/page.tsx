@@ -8,6 +8,9 @@ import CustomerReviews from "@/components/home/CustomerReviews";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import { prisma } from "@/lib/prisma";
 
+// Reads live data from the DB — render per request instead of prerendering at build time.
+export const dynamic = "force-dynamic";
+
 async function getHomeData() {
   try {
     const [featuredProducts, newArrivals, bestSellers, brands, decants] = await Promise.all([

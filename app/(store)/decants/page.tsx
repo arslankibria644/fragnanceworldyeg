@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description: "Try luxury fragrances in 2ml, 5ml, 10ml, and 15ml decants. Sample before you commit.",
 };
 
+// Reads live data from the DB — render per request instead of prerendering at build time.
+export const dynamic = "force-dynamic";
+
 export default async function DecantsPage() {
   const decants = await prisma.product.findMany({
     where: { type: "DECANT" },

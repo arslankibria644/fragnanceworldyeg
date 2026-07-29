@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description: "Explore our curated collection of luxury perfume brands",
 };
 
+// Reads live data from the DB — render per request instead of prerendering at build time.
+export const dynamic = "force-dynamic";
+
 export default async function BrandsPage() {
   const brands = await prisma.brand.findMany({
     orderBy: { name: "asc" },
