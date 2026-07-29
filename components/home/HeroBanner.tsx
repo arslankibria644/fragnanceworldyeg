@@ -1,4 +1,6 @@
 "use client";
+import { useRef } from "react";
+import type { Swiper as SwiperClass } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
 import "swiper/css";
@@ -45,6 +47,22 @@ const slides = [
 ];
 
 export default function HeroBanner() {
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  // Play only the currently active slide's video; pause (and reset) the rest.
+  // This prevents all 3 hero videos from downloading + decoding at once.
+  const playOnlyActive = (swiper: SwiperClass) => {
+    const active = swiper.realIndex;
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === active) {
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  };
+
   return (
     <div className="relative overflow-hidden">
       <Swiper
@@ -57,18 +75,22 @@ export default function HeroBanner() {
             `<span class="${className} !w-8 !h-1 !rounded-none"></span>`,
         }}
         navigation
-        loop
+        rewind
+        onSwiper={playOnlyActive}
+        onSlideChange={playOnlyActive}
         className="h-[70vh] md:h-[85vh] lg:h-screen max-h-[900px]"
       >
-        {slides.map((slide) => (
+        {slides.map((slide, i) => (
           <SwiperSlide key={slide.id}>
             <div className="relative h-full bg-black flex items-center justify-center overflow-hidden">
-              {/* Video Background */}
+              {/* Video Background — only the active slide plays; others don't preload */}
               <video
-                autoPlay
+                ref={(el) => { videoRefs.current[i] = el; }}
                 muted
                 loop
                 playsInline
+                preload={i === 0 ? "auto" : "none"}
+                poster={slide.video.replace(".mp4", ".jpg")}
                 className="absolute inset-0 w-full h-full object-cover opacity-60"
               >
                 <source src={slide.video} type="video/mp4" />
