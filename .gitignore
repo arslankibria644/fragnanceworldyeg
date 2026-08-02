@@ -40,3 +40,6 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Local video backups (not for deploy)
+public/videos/_orig/
